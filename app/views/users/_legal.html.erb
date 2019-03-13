@@ -1,0 +1,6 @@
+<% %w[inn kpp ogrn bank bic correspondent_account checking_account].each do |field| %>
+  <%= content_tag(:span, t(field.to_sym, scope: [:activerecord, :attributes, :user]), class: 'user-label') %>
+  <span class='user-value'>
+  	<%= @user.send(field) %>
+  </span>
+<% end %>

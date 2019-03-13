@@ -1,0 +1,16 @@
+<tr data-id='<%= index_table_row.id %>'>
+  <td class='td-link'><%= link_to index_table_row.id, index_table_row, class:'order-link' %></td>
+  <td><%= l index_table_row.created_at, format: :date_simple %></td>
+  <td><%= index_table_row.total_sum %></td>
+  <td>
+    <%= index_table_row.status_humanize %>
+    <br />
+    <% if index_table_row.status == 0 %>
+      <%= link_to 'Отмена', authentication_user.change_status_basket_path(index_table_row, 3), class: 'button-mid', method: :post, remote: true %>
+      <%= link_to 'В работу', authentication_user.change_status_basket_path(index_table_row, 1), class: 'button-mid', method: :post, remote: true  %>
+    <% elsif index_table_row.status == 1 %>
+      <%= link_to 'Отгрузить', authentication_user.change_status_basket_path(index_table_row, 2), class: 'button-mid', method: :post, remote: true  %>
+    <% end %>
+</td>
+  <td class='td-message'><%= index_table_row.message %></td>
+</tr>

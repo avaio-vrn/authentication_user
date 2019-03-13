@@ -1,0 +1,48 @@
+<% form_with_terms = config_get('main', 'terms_of_service') %>
+<% css_class = form_with_terms ? 'form-login js__form-with-terms' : 'form-login' %>
+
+<%= form_for(@user, url: authentication_user.users_path, html: { class: css_class }, validate: true) do |f| %>
+  <%= render "form_errors", object: f.object %>
+
+  <div class="path-10 clfl">
+    <%= f.label :fio, class:'login-label' %>
+    <%= f.text_field :fio, class:'login-input' %>
+
+    <%= f.label :email, class:'login-label' %>
+    <%= f.text_field :email, class:'login-input' %>
+  </div>
+
+  <div class="path-4 padd-r">
+    <%= f.label :password, class:'login-label' %>
+    <%= f.password_field :password, class:'login-input' %>
+  </div>
+  <div class="path-4">
+    <%= f.label :password_confirmation, class:'login-label' %>
+    <%= f.password_field :password_confirmation, class:'login-input' %>
+  </div>
+  <div class='clearfloat'></div>
+
+  <% if form_with_terms %>
+    <div class="path-10 marg-tb">
+      <div class='terms-of-service-cnt template-form-notice'>
+        <%= check_box_tag :terms_of_service, 0, false, class: 'terms-of-service js__terms-of-service' %>
+        <%= label_tag :terms_of_service, I18n.t(:terms_of_service, scope: 'attributes'), class: 'terms-of-service'%>
+        <div class='field_with_errors'>
+          <span class='js__terms-of-service-error message'></span>
+        </div>
+      </div>
+    </div>
+    <div class='clearfloat'></div>
+  <% end %>
+
+  <div class="path-3">
+    <%= f.submit t('views.form.new_user'), class: 'login-button' %>
+  </div>
+
+  <div class='path-7'>
+    <p class='small-txt'>
+      На указанную электронную почту будет выслано письмо для подтверждения регистрации.
+    </p>
+  </div>
+  <div class='clearfloat'></div>
+<% end %>

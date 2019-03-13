@@ -1,0 +1,44 @@
+<%= form_for(@user, url: authentication_user.user_path(@user), html: { class: 'wrap form-add js__template-system' }, validate: true) do |f| %>
+  <%= render "form_errors", object: f.object %>
+
+  <div class='path-7 clfl'>
+    <% if current_user.admin_less? %>
+      <%= f.label :legal, class:'f-label' %>
+      <%= f.collection_select(:legal, User::LEGAL[I18n.locale], :first, :last, {}, class:'f-input') %>
+    <% end %>
+
+    <%= f.label :fio, class:'f-label' %>
+    <%= f.text_field :fio, class:'f-input' %>
+  </div>
+  <div class='clearfloat'></div>
+
+  <div class='path-5 padd-r clfl'>
+    <%= f.label :email, class:'f-label' %>
+    <%= f.text_field :email, class:'f-input' %>
+  </div>
+  <div class='path-2 clfl'>
+    <%= f.label :phone, class:'f-label' %>
+    <%= f.text_field :phone, class:'f-input' %>
+  </div>
+  <div class='clearfloat'></div>
+
+  <div class='path-7'>
+    <%= f.label :address, class:'f-label' %>
+    <%= f.text_area :address, class:'f-area' %>
+
+    <%= render('legal_edit', f: f.object) if @user.legal %>
+
+    <%= submit_tag(t('users.actions.update'), class:'f-button') unless current_user.admin_less?  %>
+  </div>
+
+  <div class='half padd-l'>
+  </div>
+  <div class='clearfloat'></div>
+
+  <% if current_user.admin? %>
+    <%= render "danger_block", f: f, options: [
+      { field: :role, field_type: :collection_select, collection: User::ROLES,
+        value_method: :to_s, text_method: :humanize, field_css_class: "f-a-input" }]
+      %>
+  <% end %>
+<% end %>

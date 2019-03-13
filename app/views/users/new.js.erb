@@ -1,0 +1,14 @@
+$.magnificPopup.open({
+  items: {
+    src: '<%=j render "form" %>',
+    type: 'inline',
+    closeBtnInside: true
+  },
+  closeOnBgClick: false
+});
+
+$('.mfp-content').addClass('magnific-container modal-form')
+$('.mfp-content').find('form').addClass('magnific-form')
+$('.mfp-content').find('form').prepend('<div class="magnific-title">Регистрация на сайте</div>')
+$('form.magnific-form').enableClientSideValidations();
+formWithTerms();

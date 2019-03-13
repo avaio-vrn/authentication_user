@@ -1,0 +1,43 @@
+<%= content_for :stylesheets, stylesheet_link_tag('cart_page') %>
+<%= content_for :h1, content_tag(:h1, "Корзина от #{l @prev_basket.updated_at, format: :long}", class: config_get('html', 'h1_class')) %>
+
+<table border="0">
+  <tbody>
+    <tr><td>Имя:</td><td><%= content_tag(:h4, @prev_basket.name) %></td></tr>
+    <tr><td>Телефон/email:</td><td> <%= content_tag(:h4, @prev_basket.contacts_view) %></td></tr>
+    <tr><td>Адрес:</td><td><%= content_tag(:h4 ,@prev_basket.address) %></td></tr>
+    <tr><td>Сообщение:</td><td><%= content_tag(:h4 ,@prev_basket.message) %></td></tr>
+  </tbody>
+</table>
+
+<div class='cart-head'>
+  <span class='cart-head-1'>Наименование</span>
+  <span class='cart-head-2'>Количество, ед</span>
+  <span class='cart-head-3'>Цена, руб</span>
+</div>
+
+<% @prev_basket.basket_items.each do |item| %>
+  <% model = item.tovar_model %>
+  <div class='shopping-cart'>
+    <div class='cart-image'>
+      <%= image_tag model.tovar.main_image(:medium) %>
+    </div>
+    <div class='cart-name'>
+      <%= link_to model.tovar, model.tovar, class:'content-link' %>
+      <br />
+      <%= content_tag :span, model.properties_to_s, class: 'notice-goods-properties' %>
+    </div>
+    <div class='cart-number'>
+      <div class='cart-number-input'><%= item.count %></div>
+    </div>
+    <div class='cart-price'>
+      <span><%= rub_price_helper price: item.sum %></span>
+    </div>
+  </div>
+<% end %>
+
+<div class='cart-foot'>
+  <span class='cart-foot-1'></span>
+  <span class='cart-foot-2 js__basket-count'><%= @prev_basket.total_count %></span>
+  <span class='cart-foot-3 js__basket-sum'><%= rub_price_helper price: @prev_basket.total_sum %></span>
+</div>

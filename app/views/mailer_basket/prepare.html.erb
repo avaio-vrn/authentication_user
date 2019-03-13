@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <%= render 'style_prepare' %>
+  </head>
+  <body>
+    <%= content_tag(:h3, "Дата,время - #{ I18n.l DateTime.now.in_time_zone, format: :long }") %>
+    <hr />
+    <table border="0">
+      <tbody>
+        <tr><td>Имя:</td><td><%= content_tag(:h4, @send_params.name) %></td></tr>
+        <tr><td>Телефон/email:</td><td> <%= content_tag(:h4, @send_params.contacts_view) %></td></tr>
+        <tr><td>Примечание:</td><td><%= content_tag(:h4, @send_params.message) %></td></tr>
+      </tbody>
+    </table>
+
+    <% unless @send_params.pay_type_humanize.blank?  %>
+      <h3>Оплата</h3>
+      <table border="0">
+        <tbody>
+          <tr><td>Тип оплаты:</td><td> <%= content_tag(:h4, @send_params.pay_type_humanize) %></td></tr>
+          <% if @send_params.pay_type == 3 %>
+            <tr><td>Наименование организации:</td><td> <%= content_tag(:h4, @send_params.org_name) %></td></tr>
+            <tr><td>ИНН организации:</td><td><%= content_tag(:h4, @send_params.inn) %></td></tr>
+          <% end %>
+          <% if @send_params.pay_type == 99  %>
+            <tr><td>Примечание:</td><td><%= content_tag(:h4, @send_params.pay_message) %></td></tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
+    <% unless @send_params.pay_type_humanize.blank?  %>
+      <h3>Доставка</h3>
+      <table border="0">
+        <tbody>
+          <tr><td>Тип доставки:</td><td> <%= content_tag(:h4, @send_params.delivery_type_humanize) %></td></tr>
+          <% unless @send_params.delivery_type == 99  %>
+            <tr><td>Адрес:</td><td><%= content_tag(:h4, @send_params.address) %></td></tr>
+          <% end %>
+          <% if @send_params.delivery_type == 2  %>
+            <tr><td>Расчитанная стоимость:</td><td><%= content_tag(:h4, @send_params.delivery_cost ) %></td></tr>
+            <tr><td>Самовывоз с терминала ТК:</td><td><%= content_tag(:h4, @send_params.delivery_type2 == '22' ? 'да' : 'нет' ) %></td></tr>
+          <% end %>
+          <% if @send_params.delivery_type == 99  %>
+            <tr><td>Примечание:</td><td><%= content_tag(:h4, @send_params.delivery_message) %></td></tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
+    <% unless @send_params.nil? || @send_params.basket_items.blank? %>
+      <hr />
+      <br>
+      <h2>Заказ</h2>
+      <table border="1">
+        <tbody>
+          <% @send_params.basket_items.each do |line_item| %>
+            <tr>
+              <td><%= image_tag line_item.tovar_model.tovar.main_image %></td>
+              <td><%= link_to line_item.to_s.html_safe, line_item.tovar_model.tovar %><br />
+                <%= content_tag :span, line_item.tovar_model.properties_to_s, class: 'notice-goods-properties' %></td>
+              <td><%= line_item.count %> шт.</td>
+              <td><%= line_item.price %> р.</td>
+              <td>
+                = <%= line_item.count * line_item.price %> р.
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= content_tag(:h2, "Итого по заказу #{@send_params.total_sum} рублей.") %>
+      <br/>
+    <% end %>
+
+    <hr />
+
+    <h6>Вы сделали заказ на сайте <%= @biz_info.domain %>.</h6>
+    <h6>Если это письмо пришло к Вам по ошибке, отвечать на него не надо.</h6>
+  </body>
+</html>

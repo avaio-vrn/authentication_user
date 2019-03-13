@@ -1,0 +1,19 @@
+@media screen and (min-width: 900px) {
+  .cart-head {
+    font-size: 1em;
+  }
+
+  .cart-name {
+    font-size: 0.9em;
+  }
+
+  .order-info-txt {
+    flex-basis: 70%;
+    width: 70%;
+  }
+
+  .order-info-cart {
+    flex-basis: 30%;
+    width: 30%;
+  }
+}

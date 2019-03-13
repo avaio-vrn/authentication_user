@@ -1,0 +1,13 @@
+$.magnificPopup.open({
+  items: {
+    src: '<%=j render partial: "form" %>',
+    type: 'inline',
+    closeBtnInside: true
+  },
+  closeOnBgClick: false
+});
+
+$('.mfp-content').addClass('magnific-container modal-form')
+$('.mfp-content').find('form').addClass('magnific-form')
+
+$('.mfp-content').find('form').prepend('<div class="magnific-title">Вход в личный кабинет</div>')

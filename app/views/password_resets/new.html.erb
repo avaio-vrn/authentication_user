@@ -1,0 +1,3 @@
+<%= provide :h1, content_tag(:h1, t("#{params[:controller]}.#{params[:action]}.header_h1"), class: config_get('html', 'h1_class')) %>
+
+<%= render 'form' %>

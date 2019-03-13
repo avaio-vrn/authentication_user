@@ -1,0 +1,25 @@
+<%= provide :h1, content_tag(:h1, t("#{params[:controller]}.#{params[:action]}.header_h1"), class: config_get('html', 'h1_class')) %>
+
+<div class='page-bg'>
+	<table class='order-table' data-table-filter='users'>
+		<tr>
+			<th class='td-link' data-table-filter-name='id'>
+				<span class='th-span'>Номер</span>
+			</th>
+      <th class='td-message' data-table-filter-name='fio'>
+        <span class='th-span'>Организация/ФИО</span>
+      </th>
+      <th class='td-message' data-table-filter-name='email'>
+        <span class='th-span'>Элек.почта</span>
+      </th>
+      <th data-table-filter-name='phone'>
+        <span class='th-span'>Телефон</span>
+      </th>
+      <th class='td-message' data-table-filter-name='address'>
+        <span class='th-span'>Адрес</span>
+      </th>
+      <th><span class='th-span'>Скидка</span></th>
+		</tr>
+	  <%= render partial: 'index_table_row', collection: @users %>
+  </table>
+</div>

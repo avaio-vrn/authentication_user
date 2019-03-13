@@ -1,0 +1,31 @@
+@function luma($color) {
+  $r: red($color);
+  $g: green($color);
+  $b: blue($color);
+
+  @return 0.299 * $r + 0.587 * $g + 0.114 * $b;
+}
+
+@function contrast-color($color, $dark: #222, $light: #fff, $threshold: 130) {
+  @return if(luma($color) < $threshold, $light, $dark);
+}
+
+@mixin flex_or_block {
+  display: block;
+  float: left;
+
+  @supports ((display: -webkit-flex) or (display: -moz-flex) or (display: flex)) {
+    display: flex;
+    flex: 1 0 auto;
+  }
+}
+
+@mixin flex_or_block_column {
+  display: block;
+
+  @supports ((display: -webkit-flex) or (display: -moz-flex) or (display: flex)) {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+  }
+}

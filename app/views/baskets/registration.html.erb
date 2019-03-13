@@ -1,0 +1,36 @@
+<%= content_for :stylesheets, stylesheet_link_tag('cart_page') %>
+<%= provide :h1, content_tag(:h1, t("#{params[:controller]}.#{params[:action]}.header_h1"), class: config_get('html', 'h1_class')) %>
+
+<%= form_for(@user, url: authentication_user.create_from_cart_users_path, html: { class: 'form-order' }, validate: true) do |f| %>
+  <%= render "form_errors", object: f.object %>
+
+  <div class='order-field-1'>
+    <div class="path-6 clfl">
+      <%= f.label :fio, class:'order-label' %>
+      <%= f.text_field :fio, class:'order-input' %>
+      <span class='order-label--notice'>Фамилия, имя, отчество - как Вам удобнее</span>
+    </div>
+    <div class='clearfloat'></div>
+    <div class="path-6 clfl">
+      <%= f.label :email, class:'order-label' %>
+      <%= f.text_field :email, class:'order-input' %>
+      <span class='order-label--notice'>На этот email будет приходить информация от магазина</span>
+    </div>
+  </div>
+  <div class='clearfloat'></div>
+
+  <div class='order-field-1'>
+    <div class="path-4">
+      <%= f.label :password, class:'order-label' %>
+      <%= f.password_field :password, class:'order-input', validate: { presence: true, confirmation: false } %>
+      <span class='order-label--notice'>С помощью этого пароля Вы будете входить в личный кабинет</span>
+    </div>
+  </div>
+  <div class='clearfloat'></div>
+  <div class='order-info'>
+    Зарегистрируйтесь сейчас и в будущем Вы сможете просматривать историю Ваших заказов, видеть их статус, а также получать индивидуальные предложения от компании.
+  </div>
+  <%= f.submit t('views.form.new_user'), class: 'cart-buy' %>
+  <%= link_to 'Продолжить без регистрации', authentication_user.info_basket_path(@current_basket, skip_reg: 1), class: 'cart-buy--no' %>
+<% end %>
+

@@ -1,0 +1,24 @@
+<% model = basket_item.tovar_model %>
+<% return nil if model.blank? || model.tovar.blank? %>
+<div class='shopping-cart js__basket-item' data-basket-item='<%= basket_item.id %>'>
+  <div class='cart-del'>
+    <%= link_to content_tag(:span, nil, class:'cart-del-button'), authentication_user.basket_item_path(basket_item), method: :delete, confirm: 'Удалить этот товар из заказа?', remote: true %>
+  </div>
+  <div class='cart-item-ctn'>
+    <div class='cart-image'>
+      <%= image_tag model.tovar.main_image(:medium) %>
+    </div>
+    <div class='cart-name'>
+      <%= link_to model.tovar, model.tovar, class:'content-link' %>
+      <br />
+      <%= content_tag :p, model.properties_to_s, class: 'form-notice' %>
+    </div>
+    <div class='cart-number'>
+      <input class='cart-number-input js__basket-item-count' type='number' value='<%= basket_item.count %>' step='1' max='1000' min='1' />
+    </div>
+    <div class='cart-price'>
+      <span class='js__basket-item-sum'><%= rub_price_helper price: basket_item.sum %></span>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,10 @@
+@media screen and (min-width: 600px) {
+  .cart-head, .cart-item-ctn, .cart-foot {
+    flex-wrap: nowrap;
+  }
+
+  .order-field-2 {
+    flex-basis: 50%;
+    width: 50%;
+  }
+}

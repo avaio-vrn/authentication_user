@@ -1,0 +1,40 @@
+<%= content_for :javascripts, javascript_include_tag('basket') %>
+<%= content_for :javascripts, javascript_include_tag('basket_show') %>
+<%= content_for :stylesheets, stylesheet_link_tag('cart_page') %>
+<%= provide :h1, content_tag(:h1, t("#{params[:controller]}.#{params[:action]}.header_h1"), class: config_get('html', 'h1_class')) %>
+
+<div class='cart-head'>
+  <p class='cart-head-1'>Наименование</p>
+  <p class='cart-head-2'>Количество, ед</p>
+  <p class='cart-head-3'>Цена, руб</p>
+</div>
+
+<%= render @current_basket.basket_items %>
+
+<div class='cart-foot js__basket-update'>
+  <p class='cart-foot-1'>Итого по заказу:</p>
+  <p class='cart-foot-2 js__basket-count'><%= @current_basket.total_count %></p>
+  <p class='cart-foot-3 js__basket-sum'><%= rub_price_helper price: @current_basket.total_sum %></p>
+</div>
+
+<div class='clearfloat'></div>
+
+<div class='template'>
+  <div class='path-6'>
+    <div class='path-12'>
+      <%= link_to 'Оформить заказ', link_after_info, class: 'cart-buy' %>
+    </div>
+    <p class='form-notice padd-lr'>
+      Нажмите «Оформить заказ», чтобы перейти к выбору условий оплаты и доставки.
+    </p>
+  </div>
+
+  <div class='path-6'>
+    <div class='path-12'>
+      <%= link_to 'Заказать в 1 клик', new_order_quick_path(type_name: 'basket', type_id: @current_basket.id), class: 'cart-buy', remote: true %>
+    </div>
+    <p class='form-notice padd-lr noindent'>
+      Нажмите «Заказать в 1 клик», чтобы указать телефон. Наш сотрудник Вам перезвонит и уточнит условия.
+    </p>
+  </div>
+</div>

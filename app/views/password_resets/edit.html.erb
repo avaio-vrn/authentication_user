@@ -1,0 +1,23 @@
+<%= provide :h1, content_tag(:h1, t("#{params[:controller]}.#{params[:action]}.header_h1"), class: config_get('html', 'h1_class')) %>
+
+<%= form_for @user, url: authentication_user.password_reset_path(@user), html: { class: 'form-login', method: :put }, validate: true do |f| %>
+  <%= render "form_errors", object: f.object %>
+
+  <%= hidden_field_tag :token, @token %>
+  <div class="path-12">
+    <%= f.label :email, class: 'f-a-label' %>
+    <%= content_tag :p, @user.email, class: 'notmal-txt' %>
+  </div>
+  <div class="path-4 padd-r">
+    <%= f.label :password, class:'login-label' %>
+    <%= f.password_field :password, class:'login-input' %>
+  </div>
+  <div class="path-4">
+    <%= f.label :password_confirmation, class:'login-label' %>
+    <%= f.password_field :password_confirmation, class:'login-input' %>
+  </div>
+  <div class='clearfloat'></div>
+  <div class="path-3">
+    <%= f.submit "СОХРАНИТЬ", class: "login-button" %>
+  </div>
+<% end %>

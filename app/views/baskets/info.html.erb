@@ -1,0 +1,153 @@
+<%= content_for :javascripts, javascript_include_tag('basket_info') %>
+<%= content_for :stylesheets, stylesheet_link_tag('cart_page') %>
+
+<%= provide :h1, content_tag(:h1, t("#{params[:controller]}.#{params[:action]}.header_h1"), class: config_get('html', 'h1_class')) %>
+
+<div class='template order-info'>
+  <div class='order-info-txt'>
+    <p>Укажите обязательно данные: ваше имя и контактную информацию для связи с Вами.</p>
+    <p>А также, если необходимо: адрес доставки и пожелания к заказу.</p>
+  </div>
+  <div class='order-info-cart'>
+    <%= link_to 'Ваш заказ', authentication_user.basket_path(@basket), class: 'content-link bold' %>
+    <table>
+      <tbody>
+        <tr>
+          <td class='normal-txt'>
+            Количество:
+          </td>
+          <td class='bold'>
+            <%= @current_basket.total_count %>
+          </td>
+        </tr>
+        <p class='normal-txt nomarg'> <strong></strong></p>
+        <tr>
+          <td class='normal-txt'>
+            Общая сумма:
+          </td>
+          <td class='bold'>
+            <%= rub_price_helper price: @current_basket.total_sum %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= form_for @current_basket, url: authentication_user.thanks_basket_path(@current_basket), method: :post, validate: true, html: { class: @form_css_class } do |f| %>
+  <div class='main-fields-ctn'>
+    <div class='order-field-2 padd-lr'>
+      <%= f.label :name, class:'order-label' %>
+      <%= f.text_field :name, value: f.object.name_from_user, placeholder: 'Имя', class:'order-input', validate: { presence: true } %>
+
+      <% if config_get(:main, :cart_contacts).include? :contacts.to_s %>
+        <%= f.label :contacts, class:'order-label' %>
+        <%= f.text_field :contacts, placeholder: 'Информация для связи', class:'order-input', validate: { presence: true } %>
+      <% end %>
+      <% if config_get(:main, :cart_contacts).include? :phone.to_s %>
+        <%= f.label :phone, class:'order-label' %>
+        <%= f.text_field :phone, value: f.object.phone_from_user, placeholder: 'Телефон для связи', class:'order-input', validate: { presence: true } %>
+      <% end %>
+      <% if config_get(:main, :cart_contacts).include? :email.to_s %>
+        <%= f.label :email, class:'order-label' %>
+        <%= f.text_field :email, placeholder: 'Элект.почта для связи', class:'order-input', validate: { presence: true } %>
+      <% end %>
+    </div>
+
+    <div class='order-field-2 padd-lr'>
+      <%= f.label :message, class:'order-label' %>
+      <%= f.text_area :message, placeholder: 'Примечание, пожелание к заказу', class:'order-area' %>
+    </div>
+  </div>
+
+  <div class='template'>
+    <div class='path-0'>
+      <h2 class='h2'>Оплата</h2>
+    </div>
+    <div class='path-5 padd-lr js__pay'>
+      <%= f.label :pay_type, class:'order-label' %>
+      <br>
+      <input type="radio" id="basket_pay_type1" name="basket[pay_type]" value='1' checked='checked' />
+      <label for="basket_pay_type1"><span></span>Наличными при получении</label>
+      <br>
+      <% if config_get('main', 'online_pay') && @current_basket.total_sum > 0 %>
+        <input type="radio" id="basket_pay_type2" name="basket[pay_type]" value='2' />
+        <label for="basket_pay_type2"><span></span>Банк.картой сейчас через Яндекс.Касса</label>
+        <br>
+      <% end %>
+
+      <input type="radio" id="basket_pay_type3" name="basket[pay_type]" value='3' />
+      <label for="basket_pay_type3"><span></span>Счет для организации</label>
+
+      <br>
+      <input type="radio" id="basket_pay_type99" name="basket[pay_type]" value='99' />
+      <label for="basket_pay_type99"><span></span>Другое</label>
+    </div>
+    <div class='path-7 padd-lr js__right-panel'>
+      <div class='js__pay-org hidden'>
+        <%= f.label :org_name, User.human_attribute_name(:org_name), class:'order-label' %>
+        <%= f.text_field :org_name, placeholder: 'Наименование организации', class:'order-input' %>
+
+        <%= f.label :inn, User.human_attribute_name(:inn), class:'order-label' %>
+        <%= f.text_field :inn, placeholder: 'ИНН организации', class:'order-input' %>
+      </div>
+      <div class='js__pay-other hidden'>
+        <%= f.label :pay_message, 'Примечание', class:'order-label' %>
+        <%= f.text_area :pay_message, placeholder: 'Напишите свои пожелания по оплате', class:'order-area' %>
+      </div>
+    </div>
+  </div>
+
+  <div class='template'>
+    <div class='path-0'>
+      <h2 class='h2'>Доставка</h2>
+    </div>
+    <div class='path-12 js__delivery'>
+      <div class='path-5 padd-lr js__delivery-type'>
+        <%= f.label :delivery_type, class:'order-label' %>
+        <br>
+        <input type="radio" id="basket_delivery_type1" name="basket[delivery_type]" value='1' checked='checked' />
+        <label for="basket_delivery_type1"><span></span>Самовывоз</label>
+        <br>
+
+        <% if config_get('main', 'delivery_courier') %>
+          <input type="radio" id="basket_delivery_type3" name="basket[delivery_type]" value='3' />
+          <label for="basket_delivery_type3"><span></span>Доставка курьером</label>
+          <br>
+        <% end %>
+
+        <input type="radio" id="basket_delivery_type99" name="basket[delivery_type]" value='99' />
+        <label for="basket_delivery_type99"><span></span>Другое</label>
+      </div>
+      <div class='path-7 padd-lr js__right-panel'>
+        <div class='js__delivery-address hidden'>
+          <%= f.label :address, class:'order-label' %>
+          <%= f.text_area :address, placeholder: 'Адрес доставки', class:'order-area' %>
+        </div>
+
+        <div class='js__delivery-other hidden'>
+          <%= f.label :delivery_message, 'Примечание', class:'order-label' %>
+          <%= f.text_area :delivery_message, placeholder: 'Напишите свои пожелания, условия по доставке', class:'order-area' %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <% if config_get('main', 'terms_of_service') %>
+    <div class='template'>
+      <div class='terms-of-service-cnt template-form-notice padd-lr'>
+        <%= check_box_tag :terms_of_service, 0, false, class: 'terms-of-service js__terms-of-service' %>
+        <%= label_tag :terms_of_service, I18n.t(:terms_of_service, scope: 'attributes'), class: 'terms-of-service'%>
+        <div class='field_with_errors'>
+          <span class='js__terms-of-service-error message'></span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='path-7 js__buttons'>
+    <%= f.submit t('views.form.pay_order'), class: 'cart-buy hidden js__pay-btn', name: :pay_order %>
+    <%= f.submit t('views.form.send_order'), class: 'cart-buy js__send-btn' %>
+  </div>
+<% end %>

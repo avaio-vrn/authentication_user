@@ -1,0 +1,15 @@
+<%= content_for :javascripts, javascript_include_tag('basket_send') %>
+<%= content_for :stylesheets, stylesheet_link_tag('cart_page') %>
+<%= provide :h1, content_tag(:h1, t("#{params[:controller]}.#{params[:action]}.header_h1"), class: config_get('html', 'h1_class')) %>
+
+<div class="template">
+  <h2 class="h2">Ваша заявка отправлена</h2>
+  <p class="normal-txt path-0">В ближайшее время с вами свяжется наш менеджер для уточнения деталей заказа.</p>
+</div>
+<% if config_get(:main, :tovar_model_stock) %>
+  <div class="template">
+    <h2 class="h2">У нас есть много хороших предложений</h2>
+    <p class="normal-txt path-0">Если Вы не смотрели наш раздел "Акции", то можете перейти по <a href='/aktsii' class='content-link'>ссылке</a> и
+      возможно, Вас заинтересуют наши предложения.</span>
+  </div>
+<% end %>

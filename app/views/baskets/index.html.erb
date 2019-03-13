@@ -1,0 +1,23 @@
+<%= provide :h1, content_tag(:h1, t("#{params[:controller]}.#{params[:action]}.header_h1"), class: config_get('html', 'h1_class')) %>
+
+<div class='page-bg'>
+  <table class='order-table' data-table-filter='baskets'>
+    <tr>
+      <th class='td-link' data-table-filter='true' data-table-filter-name='id'>
+        <span class='th-span'>Номер</span>
+      </th>
+      <th>
+        <span class='th-span'>Дата</span>
+      </th>
+      <th>
+        <span class='th-span'>Сумма</span>
+      </th>
+      <th data-table-filter-name='status'>
+        <span class='th-span'>Статус</span>
+      </th>
+      <th class='td-message'><span class='th-span'>Примечание</span></th>
+    </tr>
+    <%= render partial: 'index_table_row', collection: @baskets %>
+  </table>
+</div>
+

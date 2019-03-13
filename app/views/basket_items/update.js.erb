@@ -1,0 +1,4 @@
+var row = $("[data-basket-item='<%= @basket_item.id %>']");
+row.find('.js__basket-item-sum').replaceWith('<%= rub_price_helper price: @basket_item.sum, css: 'js__basket-item-sum' %>');
+$('.js__basket-sum').replaceWith('<%= rub_price_helper price: @current_basket.total_sum, css: 'cart-foot-3 js__basket-sum' %>');
+$('.js__basket-count').text('<%= @current_basket.total_count %>');

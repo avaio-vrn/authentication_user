@@ -1,0 +1,4 @@
+$("[data-basket-item='<%= @basket_item.id %>']").remove();
+$('.js__basket-count').text('<%= @basket_item.basket.total_count %>');
+$('.js__basket-sum').text('<%= @basket_item.basket.total_sum %>');
+$('.js__cart').replaceWith('<%=j render "/baskets/basket" %>');

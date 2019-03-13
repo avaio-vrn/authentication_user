@@ -1,0 +1,31 @@
+<div class="half padd-r">
+	<%= label_tag :inn, t(:inn, scope: [:activerecord, :attributes, :user]), class:'user-label' %>
+	<%= text_field_tag :inn, f.inn, class:'user-input' %>
+</div>
+
+<div class="half padd-l">
+	<%= label_tag :kpp, t(:kpp, scope: [:activerecord, :attributes, :user]), class:'user-label' %>
+	<%= text_field_tag :kpp, f.kpp, class:'user-input' %>
+</div>
+<div class="clearfloat"></div>
+
+<%= label_tag :ogrn, t(:ogrn, scope: [:activerecord, :attributes, :user]), class:'user-label' %>
+<%= text_field_tag :ogrn, f.ogrn, class:'user-input' %>
+
+<%= label_tag :bank, t(:bank, scope: [:activerecord, :attributes, :user]), class:'user-label' %>
+<%= text_field_tag :bank, f.bank, class:'user-input' %>
+
+<%= label_tag :bic, t(:bic, scope: [:activerecord, :attributes, :user]), class:'user-label' %>
+<%= text_field_tag :bic, f.bic, class:'user-input' %>
+
+<div class="half padd-r">
+	<%= label_tag :correspondent_account, t(:correspondent_account, scope: [:activerecord, :attributes, :user]), class:'user-label' %>
+	<%= text_field_tag :correspondent_account, f.correspondent_account, class:'user-input' %>
+</div>
+
+<div class="half padd-l">
+	<%= label_tag :checking_account, t(:checking_account, scope: [:activerecord, :attributes, :user]), class:'user-label' %>
+	<%= text_field_tag :checking_account, f.checking_account, class:'user-input' %>
+</div>
+<div class="clearfloat"></div>
+

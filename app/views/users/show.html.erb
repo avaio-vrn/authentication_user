@@ -1,0 +1,45 @@
+<%= provide :h1, content_tag(:h1, t("#{params[:controller]}.#{params[:action]}.header_h1"), class: config_get('html', 'h1_class')) %>
+<%= provide :stylesheets, stylesheet_link_tag(:user, media: :all) %>
+
+<div class='content-wrap clfl'>
+  <div class='path-6'>
+    <% %w[fio email phone address].each do |field| %>
+      <%= content_tag(:span, t(field, scope: [:activerecord, :attributes, :user]), class:'f-label') %>
+      <span class='f-value'>
+        <%= @user.send(field.to_sym) %>
+      </span>
+    <% end %>
+
+    <%= render('legal', f: @user) if @user.legal %>
+
+    <% if current_user.admin_less? || current_user == @user %>
+      <div class='path-5'>
+        <%= link_to t('users.actions.edit'), authentication_user.edit_user_path(@user), class:'f-button' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class='path-6'>
+    <%# <%= link_to t('users.actions.orders'), list_baskets_path, class:'order-button marg-b' %>
+    <%= content_tag :span, t('users.actions.orders'), class:'order-button marg-b' %>
+    <table class='order-table'>
+      <tr>
+        <th class='td-link'>
+          <span class='th-span'>Номер</span>
+        </th>
+        <th><span class='th-span'>Дата</span></th>
+        <th><span class='th-span'>Сумма</span></th>
+        <th><span class='th-span'>Статус</span></th>
+      </tr>
+      <% Basket.last_baskets(@user.id, 2).each do |basket| %>
+        <tr>
+          <td class='td-link'><%= link_to basket.id, authentication_user.basket_path(basket), class:'order-link' %></td>
+          <td><%= l basket.created_at, format: :date_simple %></td>
+          <td><%= basket.total_sum %></td>
+          <td><%= basket.status_humanize %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+

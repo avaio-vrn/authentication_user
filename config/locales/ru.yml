@@ -1,0 +1,138 @@
+ru:
+  breadcrumbs:
+    user_sessions: Вход
+    users: Пользователи
+  user: к пользователю
+  basket: корзина
+  activerecord:
+    successful:
+      messages:
+        activated: На почту отправлено письмо для активации
+        successed: Аккаунт актирован
+    models:
+      basket: Корзина
+      accusative:
+        basket: корзину
+      user: Пользователь
+      accusative:
+        user: пользователя
+    attributes:
+      user:
+        fio: Как к Вам обращаться?
+        org_name:  Название организации
+        email: Ваша электронная почта
+        phone: Телефон с кодом города
+        address: Адрес доставки
+        password: Пароль
+        password_confirmation: Подтвердите пароль
+        remember_me: Запомнить
+        role: Права пользователя
+        legal: Физ. или Юр. лицо
+        inn: ИНН
+        kpp: КПП
+        ogrn: ОГРН
+        bank: Банк
+        bic: БИК
+        correspondent_account: Кор.счет
+        checking_account: Расч.счет
+      basket:
+        name: Как к Вам обращаться
+        contacts: Электронная почта или телефон
+        email: Электронная почта
+        phone: Телефон с кодом города
+        message: Примечание, пожелание
+        address: Адрес доставки
+        sum: Сумма заказа
+        pay_type: Тип оплаты
+        delivery_type: Способ доставки
+        humanize_status:
+          s0: Заказ отправлен
+          s1: Обработка заказа
+          s2: Заказ отгружен
+          s3: Отменен
+    errors:
+      models:
+        user:
+          attributes:
+            phone:
+              invalid: видимо вы ошиблись в написании телефона
+            email:
+              invalid: видимо вы ошиблись в написании email
+            inn:
+              blank: ИНН не может быть пустым
+            kpp:
+              blank: КПП не может быть пустым
+            ogrn:
+              blank: ОГРН не может быть пустым
+            bank:
+              blank: Наименование банка не может быть пустым
+            bic:
+              blank: БИК банка не может быть пустым
+            correspondent_account:
+              blank: К.счет банка не может быть пустым
+            checking_account:
+              blank: Р.счет не может быть пустым
+  user_sessions:
+    index:
+      header_h1: Вход в личный кабинет
+    new:
+      header_h1: Вход в личный кабинет
+    create:
+      header_h1: Вход выполнен успешно!
+    destroy:
+      header_h1: Выход выполнен!
+  users:
+    new:
+      header_h1: Регистрация
+    create:
+      header_h1: Регистрация
+    edit:
+      header_h1: Редактирование данных
+    update:
+      header_h1: Редактирование данных
+    index:
+      header_h1: Пользователи
+    show:
+      header_h1: Личный кабинет
+    actions:
+      orders: Весь список заказов
+      edit: Редактировать
+      update: Сохранить
+  password_resets:
+    index: &reset_password
+      header_h1: Восстановление пароля
+    new: *reset_password
+    edit:
+      header_h1: Выберите новый пароль
+    create:
+      header_h1: Инструкция отправлена на email
+  views:
+    form:
+      new_user: Регистрация
+      reset_password: Восстановить пароль
+      send_order: Отправить заказ
+      pay_order: Отправить и оплатить
+      pay: Оплатить
+  mail:
+    activation_needed: "[%{domain}] Активация аккаунта сайта"
+    activation_success: "[%{domain}] Активация аккаунта выполнена"
+    reset_password: "[%{domain}] Восстановление пароля"
+  baskets:
+    index: &list_baskets
+      header_h1: Список заказов
+    show:
+      header_h1: Корзина
+    info:
+      header_h1: Оформление заказа
+    thanks:
+      header_h1: Оформление заказа
+    registration:
+      header_h1: Зарегистрироваться
+    send_order:
+      header_h1: Спасибо!
+    list: *list_baskets
+    goods:
+        few: ! '%{count} товаров'
+        many: ! '%{count} товаров'
+        one: ! '%{count} товар'
+        other: ! '%{count} товара'

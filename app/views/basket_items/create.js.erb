@@ -1,0 +1,18 @@
+window.dataLayer = window.dataLayer || []
+window.dataLayer.push(JSON.parse("<%=raw (j @basket_item.tovar_model.ecommerce('add', @basket_item.price)) %>"))
+
+$('.js__cart').replaceWith('<%=j render @current_basket %>');
+
+<% if config_get(:main, :add_cart_flash) %>
+  showFlashMessage('<span class="flash-icon flash--apply"></span>\
+  <div class="notice">Товар добавлен. <%=j "#{t(:goods, scope: :baskets, count: @current_basket.total_count)} в корзине.".html_safe %> \
+  Перейти в <a href="/baskets" class="content-link">корзину</a></div>');
+<% end %>
+
+var target = $('.js__basket-add[data-id="<%= @basket_item.tovar_model_id %>"]').closest('.js__goods-wrap');
+if(target.length == 0){
+  target = document.querySelector('.js__goods-wrap')
+}
+$(window).trigger('cart.add.item', target);
+
+$('.js__cart').removeClass('cart-add-item').addClass('cart-add-item');

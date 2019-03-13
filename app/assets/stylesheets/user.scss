@@ -1,0 +1,126 @@
+@import  'variables';
+@import 'mixins';
+@import 'common_mixins';
+
+$text-dark: #222;
+$basic-dark: #222;
+
+/* ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS  */
+.order-button{
+  padding:15px 30px;
+  display:block;
+  font:24px/1 $text-dark;
+  color:#FFF;
+  border:1px solid #666;
+  @include transition;
+  position:relative;
+  background:#666;
+
+  &:before, &:after{
+    content:'';
+    display:block;
+    position:absolute;
+    right:20px;
+    top:50%;
+    @include transition;
+  }
+  &:before{
+    width:24px;
+    height:2px;
+    margin-top:-1px;
+    background:#FFF;
+  }
+  &:after{
+    width:12px;
+    height:12px;
+    border-top:2px solid #FFF;
+    border-right:2px solid #FFF;
+    margin-top:-7px;
+    transform:rotate(45deg);
+  }
+  &:hover{
+    color:#222;
+    background:#FFF;
+    &:before{
+      background:#222;
+    }
+    &:after{
+      border-color:#222;
+    }
+  }
+}
+
+
+.order-table{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  font-size:14px;
+
+  th{
+    width:17%;
+    padding:10px 30px 10px 20px;
+    text-align:left;
+    font:22px/30px $title;
+    color:#FFF;
+    border:1px solid #666;
+    border-bottom:none;
+    position:relative;
+    background:#666;
+    .th-span{
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
+  }
+  td{
+    width:17%;
+    padding:10px 20px;
+    border:1px solid #CCC;
+  }
+  .td-link{
+    width:9%;
+  }
+  td.td-link{
+    padding:0;
+  }
+  .td-message{
+    width:40%;
+  }
+  tr{
+    @include transition;
+    &:hover{
+      background:#FFF;
+    }
+  }
+}
+.order-link{
+  display:block;
+  padding:10px 20px;
+  position:relative;
+  color:$basic-dark;
+  @include transition;
+
+  &:after{
+    content:'';
+    width:8px;
+    height:8px;
+    display:block;
+    border-top:2px solid #666;
+    border-right:2px solid #666;
+    position:absolute;
+    right:15px;
+    top:50%;
+    margin-top:-5px;
+    transform:rotate(45deg);
+    @include transition;
+  }
+  &:hover{
+    color:#222;
+    background:#cdcdcd;
+    &:after{
+      right:10px;
+    }
+  }
+}
+/* ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS - ORDERS  */
